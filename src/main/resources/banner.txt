@@ -1,0 +1,9 @@
+${AnsiColor.BRIGHT_GREEN} _   _                         ${AnsiColor.BRIGHT_RED}  _   _               ${AnsiColor.BRIGHT_BLUE} __   __              
+${AnsiColor.BRIGHT_GREEN}| | | |                        ${AnsiColor.BRIGHT_RED} | \ | |              ${AnsiColor.BRIGHT_BLUE} \ \ / /              
+${AnsiColor.BRIGHT_GREEN}| |_| | __ _ _ __  _ __  _   _ ${AnsiColor.BRIGHT_RED} |  \| | _____      __${AnsiColor.BRIGHT_BLUE}  \ V /___  __ _ _ __ 
+${AnsiColor.BRIGHT_GREEN}|  _  |/ _` | '_ \| '_ \| | | |${AnsiColor.BRIGHT_RED} | . ` |/ _ \ \ /\ / /${AnsiColor.BRIGHT_BLUE}   \ // _ \/ _` | '__|
+${AnsiColor.BRIGHT_GREEN}| | | | (_| | |_) | |_) | |_| |${AnsiColor.BRIGHT_RED} | |\  |  __/\ V  V / ${AnsiColor.BRIGHT_BLUE}   | |  __/ (_| | |   
+${AnsiColor.BRIGHT_GREEN}\_| |_/\__,_| .__/| .__/ \__, |${AnsiColor.BRIGHT_RED} \_| \_/\___| \_/\_/  ${AnsiColor.BRIGHT_BLUE}   \_/\___|\__,_|_|   
+${AnsiColor.BRIGHT_GREEN}            | |   | |     __/ |${AnsiColor.BRIGHT_RED}                      ${AnsiColor.BRIGHT_BLUE}                      
+${AnsiColor.BRIGHT_GREEN}            |_|   |_|    |___/ ${AnsiColor.BRIGHT_RED}                      ${AnsiColor.BRIGHT_BLUE}                     
+${AnsiColor.BRIGHT_BLUE}:-----Reports:${application.formatted-version}${AnsiColor.BRIGHT_GREEN}:-------:${spring-boot.formatted-version}
