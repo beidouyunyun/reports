@@ -2,18 +2,19 @@ package com.yun.reports.utils.api;
 
 import java.io.Serializable;
 import java.net.InetAddress;
-import java.net.UnknownHostException;
 import java.util.List;  
 import java.util.Map;  
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.elasticsearch.action.delete.DeleteResponse;  
 import org.elasticsearch.action.get.GetResponse;  
 import org.elasticsearch.action.index.IndexResponse;  
 import org.elasticsearch.client.Client;  
 import org.elasticsearch.client.transport.TransportClient;  
 import org.elasticsearch.common.settings.Settings;  
-import org.elasticsearch.common.transport.InetSocketTransportAddress;
+import org.elasticsearch.common.transport.TransportAddress;
 import org.elasticsearch.transport.client.PreBuiltTransportClient;
 
 import com.alibaba.fastjson.JSONObject;	
@@ -22,6 +23,7 @@ public class ElasticsearchUtils implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
+	private static Logger logger = LogManager.getLogger(ElasticsearchUtils.class);
 	//private static Map<String, ElasticsearchUtils> instanceCache;  
 	
 	private String esClusterName;
@@ -60,6 +62,7 @@ public class ElasticsearchUtils implements Serializable {
     		System.out.println("hosts is empty");
     		return null;
     	}
+    	logger.info("esClusterName: " + esClusterName + " ;esHosts: " + esHosts);
     	
     	String[] hostLists = esHosts.split(",");
     	String[] address;
@@ -71,13 +74,19 @@ public class ElasticsearchUtils implements Serializable {
     			host = address[0];
     			port = Integer.parseInt(address[1]);
     			try {
+    				logger.info("host: " +host + " ;port: "+ port);
+    				
     				esClient = new PreBuiltTransportClient(Settings.EMPTY)
-    				        .addTransportAddress(new InetSocketTransportAddress(InetAddress.getByName(host), port));
-    			} catch (UnknownHostException e) {
-    				// TODO Auto-generated catch block
+    				        .addTransportAddress(new TransportAddress(InetAddress.getByName(host), port));
+    				
+    				logger.info("success to connect the ES");
+    			} catch (Exception e) {
+    				logger.info("connectES faild");
     				e.printStackTrace();
     			}
-    		}
+    		}else {
+				esClient.close();;
+			}
     	}
     	return esClient;
     }  
@@ -90,7 +99,7 @@ public class ElasticsearchUtils implements Serializable {
      * @return 
      */  
     public IndexResponse createIndex(String index, String type, String jsonData, String timestamp){  
-        IndexResponse response = esClient.prepareIndex(index, type).setSource(jsonData).setTimestamp(timestamp).execute().actionGet();  
+        IndexResponse response = esClient.prepareIndex(index, type).setSource(jsonData).execute().actionGet();  
         return response;  
     }  
       
@@ -103,7 +112,7 @@ public class ElasticsearchUtils implements Serializable {
      * @return 
      */  
     public IndexResponse createIndex(String index, String type, Map<String,Object> data, Long ttl){  
-        IndexResponse response = esClient.prepareIndex(index, type).setSource(data).setTTL(ttl).execute().actionGet();  
+        IndexResponse response = esClient.prepareIndex(index, type).setSource(data).execute().actionGet();  
         return response;  
     }  
       
@@ -116,7 +125,7 @@ public class ElasticsearchUtils implements Serializable {
      * @return 
      */  
     public IndexResponse createIndex(String index, String type, JSONObject data, Long ttl){  
-        IndexResponse response = esClient.prepareIndex(index, type).setSource(data).setTTL(ttl).execute().actionGet();  
+        IndexResponse response = esClient.prepareIndex(index, type).setSource(data).execute().actionGet();  
         return response;  
     }  
       
@@ -131,7 +140,7 @@ public class ElasticsearchUtils implements Serializable {
     public void createIndex(String index, String type, List<JSONObject> data, Long ttl){  
         if (null != data && data.size() > 0){  
             for (JSONObject obj : data){  
-                esClient.prepareIndex(index, type).setSource(obj).setTTL(ttl);  
+                esClient.prepareIndex(index, type).setSource(obj);  
             }  
         }  
     }  
