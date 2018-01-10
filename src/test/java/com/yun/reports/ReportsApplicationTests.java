@@ -17,6 +17,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import com.yun.reports.hello.HelloController;
 
+
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = MockServletContext.class)
 public class ReportsApplicationTests {
