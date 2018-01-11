@@ -35,4 +35,10 @@ public class TestElasticsearch {
 		mockMvc.perform(MockMvcRequestBuilders.get("/es/connect?esClusterName=elk_test&esHosts=192.168.93.201:9300").accept(MediaType.APPLICATION_JSON))
 		.andExpect(status().isOk());
 	}
+	
+	@Test
+	public void testSearchAll() throws Exception {
+		mockMvc.perform(MockMvcRequestBuilders.get("/es/searchAll?esHosts=192.168.93.201:9200").accept(MediaType.APPLICATION_JSON))
+		.andExpect(status().isOk());
+	}
 }
