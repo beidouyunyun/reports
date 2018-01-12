@@ -6,7 +6,8 @@ import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.http.HttpHost;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.elasticsearch.ElasticsearchException;
 import org.elasticsearch.action.ActionListener;
 import org.elasticsearch.action.delete.DeleteRequest;
@@ -32,7 +33,7 @@ import com.alibaba.fastjson.JSONObject;
 
 public class ESHighAPI {
 
-	private static Logger logger = org.apache.log4j.Logger.getLogger(ESHighAPI.class);
+	private static final Logger logger = LogManager.getLogger(ESHighAPI.class);
 
 	private static RestHighLevelClient esClient;
 
